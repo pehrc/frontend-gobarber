@@ -1,10 +1,12 @@
 import React, { useRef, useCallback } from 'react';
-import { Container, Content, Background } from './styles';
-import logoImg from '../../assets/logo.svg';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
+
 import * as Yup from 'yup';
+import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+
+import logoImg from '../../assets/logo.svg';
+import { Container, Content, Background } from './styles';
 
 import getValidationErros from '../../utils/getValidationErros';
 
@@ -15,8 +17,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   console.log(formRef);
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data) => {
     try {
       formRef.current?.setErrors({});
 
@@ -29,7 +30,7 @@ const SignIn: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-    } catch (err) {
+    } catch (err: any) {
       const errors = getValidationErros(err);
 
       formRef.current?.setErrors(errors);

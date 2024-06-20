@@ -1,12 +1,12 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
-import { Form } from '@unform/web';
-import * as Yup from 'yup'; // Importar tudo oque tem dentro do yup para a variavel Yup => Yup Faz Validações
-import { FormHandles } from '@unform/core';
 
-import getValidationErros from '../../utils/getValidationErros';
+import * as Yup from 'yup';
+import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
+import getValidationErros from '../../utils/getValidationErros';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -17,8 +17,7 @@ const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   console.log(formRef);
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data) => {
     try {
       formRef.current?.setErrors({});
 
@@ -32,7 +31,7 @@ const SignUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-    } catch (err) {
+    } catch (err: any) {
       const errors = getValidationErros(err);
 
       formRef.current?.setErrors(errors);
